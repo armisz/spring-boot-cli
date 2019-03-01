@@ -1,0 +1,18 @@
+spring:
+  shell:
+    command:
+      clear:
+        enabled: true
+      exit:
+        enabled: true
+      quit:
+        enabled: true
+      stacktrace:
+        enabled: true
+    interactive:
+      enabled: true
+  main:
+    banner-mode: "off"
+logging:
+  level:
+    root: ERROR
