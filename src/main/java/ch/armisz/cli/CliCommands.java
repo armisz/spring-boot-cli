@@ -3,14 +3,19 @@ package ch.armisz.cli;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 @ShellComponent
 public class CliCommands {
+
+    @Autowired
+    ApplicationContext ctx;
 
     @Autowired
     TerminalService terminalService;
@@ -33,4 +38,10 @@ public class CliCommands {
         }
     }
 
+    @ShellMethod(value = "Beans", group = "SpringBoot")
+    public void beanz() {
+        Arrays.stream(ctx.getBeanDefinitionNames())
+                .sorted()
+                .forEach(terminalService::write);
+    }
 }
