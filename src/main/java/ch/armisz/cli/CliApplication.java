@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CliApplication {
 
     public static void main(String[] args) {
+        System.out.println("Welcome to CLI!");
         SpringApplication.run(CliApplication.class, args);
     }
 

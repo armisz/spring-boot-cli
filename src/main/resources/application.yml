@@ -1,4 +1,6 @@
 spring:
+  main:
+    banner-mode: "off"
   shell:
     command:
       clear:
@@ -11,8 +13,9 @@ spring:
         enabled: true
     interactive:
       enabled: true
-  main:
-    banner-mode: "off"
 logging:
   level:
-    root: ERROR
+    root: INFO
+  file: cli-appl.log
+  pattern:
+    console:
