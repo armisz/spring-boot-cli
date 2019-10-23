@@ -7,9 +7,13 @@ import lombok.Value;
 @Builder
 public class RomeFilter {
 
-  public static final RomeFilter NONE = RomeFilter.builder().build();
+    public static final RomeFilter NONE = RomeFilter.builder().build();
 
-  private String product;
-  private String component;
+    private String product;
+    private String component;
 
+    @Override
+    public String toString() {
+        return String.format("(product=%s component=%s)", product, component);
+    }
 }

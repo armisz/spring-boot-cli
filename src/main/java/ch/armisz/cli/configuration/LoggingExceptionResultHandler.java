@@ -11,19 +11,19 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class LoggingExceptionResultHandler implements ResultHandler<Exception> {
 
-  @Autowired
-  @Lazy
-  private InteractiveShellApplicationRunner interactiveRunner;
-  @Autowired
-  private ThrowableResultHandler throwableResultHandler;
+    @Autowired
+    @Lazy
+    private InteractiveShellApplicationRunner interactiveRunner;
+    @Autowired
+    private ThrowableResultHandler throwableResultHandler;
 
-  @Override
-  public void handleResult(Exception result) {
-    if (interactiveRunner.isEnabled()) {
-      String toPrint =
-          StringUtils.hasLength(result.getMessage()) ? result.getMessage() : result.toString();
-      log.error(toPrint, result);
+    @Override
+    public void handleResult(Exception result) {
+        if (interactiveRunner.isEnabled()) {
+            String toPrint =
+                    StringUtils.hasLength(result.getMessage()) ? result.getMessage() : result.toString();
+            log.error(toPrint, result);
+        }
+        throwableResultHandler.handleResult(result);
     }
-    throwableResultHandler.handleResult(result);
-  }
 }
