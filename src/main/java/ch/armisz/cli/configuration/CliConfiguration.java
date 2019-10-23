@@ -1,4 +1,4 @@
-package ch.armisz.cli;
+package ch.armisz.cli.configuration;
 
 import org.jline.reader.History;
 import org.jline.reader.LineReader;
