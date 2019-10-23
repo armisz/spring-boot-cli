@@ -13,8 +13,16 @@ public class RomeService {
     log.info("fetch");
   }
 
+  public boolean isFetchReady() {
+    return true;
+  }
+
   public void parameters(RomeFilter filter) {
     log.info("parameters, filter={}", filter);
+  }
+
+  public boolean isParametersReady() {
+    return true;
   }
 
   public void configure(RomeFilter filter) {
@@ -27,5 +35,9 @@ public class RomeService {
 
   public void images(RomeFilter filter) {
     log.info("images, filter={}", filter);
+  }
+
+  public boolean isImagesReady() {
+    return true;
   }
 }

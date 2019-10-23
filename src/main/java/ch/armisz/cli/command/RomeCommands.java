@@ -23,9 +23,9 @@ public class RomeCommands {
   }
 
   Availability fetchAvailability() {
-    return Boolean.FALSE
-        ? Availability.unavailable("repositories must be configured first.")
-        : Availability.available();
+    return romeService.isFetchReady()
+        ? Availability.available()
+        : Availability.unavailable("repositories must be configured first.");
   }
 
   @ShellMethod("Manage parameters")
@@ -46,7 +46,7 @@ public class RomeCommands {
   }
 
   Availability parametersAvailability() {
-    return Boolean.TRUE
+    return romeService.isParametersReady()
         ? Availability.available()
         : Availability.unavailable("command [fetch] must be executed first.");
   }
@@ -112,7 +112,7 @@ public class RomeCommands {
   }
 
   Availability imagesAvailability() {
-    return Boolean.TRUE
+    return romeService.isImagesReady()
         ? Availability.available()
         : Availability.unavailable("command [configure] must be executed first.");
   }
