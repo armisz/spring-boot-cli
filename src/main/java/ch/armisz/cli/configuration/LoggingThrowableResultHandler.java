@@ -1,4 +1,4 @@
-package ch.armisz.cli;
+package ch.armisz.cli.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

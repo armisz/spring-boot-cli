@@ -1,5 +1,6 @@
 package ch.armisz.cli.configuration;
 
+import java.nio.file.Paths;
 import org.jline.reader.History;
 import org.jline.reader.LineReader;
 import org.jline.reader.impl.history.DefaultHistory;
@@ -8,9 +9,6 @@ import org.jline.utils.AttributedStyle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.shell.jline.PromptProvider;
-import org.springframework.shell.result.ThrowableResultHandler;
-
-import java.nio.file.Paths;
 
 @Configuration
 public class CliConfiguration {
@@ -27,9 +25,8 @@ public class CliConfiguration {
     }
 
     @Bean
-    // TODO: Didn't find a way yet how this bean declaration supposed to override the one in ResultHandlerConfig
-    public ThrowableResultHandler throwableResultHandler() {
-        return new LoggingThrowableResultHandler();
+    public LoggingExceptionResultHandler loggingExceptionResultHandler() {
+        return new LoggingExceptionResultHandler();
     }
 
 }
