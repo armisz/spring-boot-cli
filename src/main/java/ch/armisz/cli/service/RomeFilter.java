@@ -5,9 +5,9 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ConstellationFilter {
+public class RomeFilter {
 
-  public static final ConstellationFilter NONE = ConstellationFilter.builder().build();
+  public static final RomeFilter NONE = RomeFilter.builder().build();
 
   private String product;
   private String component;
