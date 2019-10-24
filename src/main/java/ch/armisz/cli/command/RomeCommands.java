@@ -2,11 +2,16 @@ package ch.armisz.cli.command;
 
 import ch.armisz.cli.service.RomeFilter;
 import ch.armisz.cli.service.RomeService;
+import ch.armisz.cli.state.RomeEvents;
+import ch.armisz.cli.state.RomeStates;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.statemachine.StateMachine;
 
 @ShellComponent
 public class RomeCommands {
@@ -17,16 +22,12 @@ public class RomeCommands {
 
     @Autowired
     private RomeService romeService;
+    @Autowired
+    private StateMachine<RomeStates, RomeEvents> stateMachine;
 
     @ShellMethod("Fetch components from repository")
     public void fetch() {
-        romeService.fetch();
-    }
-
-    Availability fetchAvailability() {
-        return romeService.isFetchReady()
-                ? Availability.available()
-                : Availability.unavailable("repositories must be configured first.");
+        stateMachine.sendEvent(RomeEvents.FETCH);
     }
 
     @ShellMethod("Manage parameters")
@@ -40,16 +41,17 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        romeService.parameters(RomeFilter.builder()
+        RomeFilter filter = RomeFilter.builder()
                 .component(componentFilter)
                 .product(productFilter)
-                .build());
+                .build();
+        romeService.parameters(filter);
     }
 
     Availability parametersAvailability() {
-        return romeService.isParametersReady()
-                ? Availability.available()
-                : Availability.unavailable("command [fetch] must be executed first.");
+        return RomeStates.STARTED.equals(stateMachine.getState().getId())
+                ? Availability.unavailable("command [fetch] must be executed first.")
+                : Availability.available();
     }
 
     @ShellMethod("Applies configuration")
@@ -63,10 +65,14 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        romeService.configure(RomeFilter.builder()
+        RomeFilter filter = RomeFilter.builder()
                 .component(componentFilter)
                 .product(productFilter)
-                .build());
+                .build();
+        Message<RomeEvents> configureMessage = MessageBuilder.withPayload(RomeEvents.CONFIGURE)
+                .setHeader("filter", filter)
+                .build();
+        stateMachine.sendEvent(configureMessage);
     }
 
     @ShellMethod("Lists all kubectl commands necessary to deploy the new configuration")
@@ -90,7 +96,12 @@ public class RomeCommands {
                 .component(componentFilter)
                 .product(productFilter)
                 .build();
-        romeService.deploy(filter, ignoreFetch, ignoreConfigure);
+        Message<RomeEvents> deployMessage = MessageBuilder.withPayload(RomeEvents.DEPLOY)
+                .setHeader("filter", filter)
+                .setHeader("ignoreFetch", ignoreFetch)
+                .setHeader("ignoreConfigure", ignoreConfigure)
+                .build();
+        stateMachine.sendEvent(deployMessage);
     }
 
     @ShellMethod("List images")
@@ -106,14 +117,15 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        romeService.images(RomeFilter.builder()
+        RomeFilter filter = RomeFilter.builder()
                 .component(componentFilter)
                 .product(productFilter)
-                .build());
+                .build();
+        romeService.images(filter);
     }
 
     Availability imagesAvailability() {
-        return romeService.isImagesReady()
+        return RomeStates.DEPLOYED.equals(stateMachine.getState().getId())
                 ? Availability.available()
                 : Availability.unavailable("command [configure] must be executed first.");
     }

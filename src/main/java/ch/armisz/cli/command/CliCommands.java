@@ -1,6 +1,8 @@
 package ch.armisz.cli.command;
 
 import ch.armisz.cli.service.TerminalService;
+import ch.armisz.cli.state.RomeEvents;
+import ch.armisz.cli.state.RomeStates;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.statemachine.StateMachine;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -17,7 +20,8 @@ public class CliCommands {
 
     @Autowired
     ApplicationContext ctx;
-
+    @Autowired
+    private StateMachine<RomeStates, RomeEvents> stateMachine;
     @Autowired
     TerminalService terminalService;
 
@@ -40,9 +44,14 @@ public class CliCommands {
     }
 
     @ShellMethod(value = "Beans", group = "SpringBoot")
-    public void beanz() {
+    public void beans() {
         Arrays.stream(ctx.getBeanDefinitionNames())
                 .sorted()
                 .forEach(terminalService::write);
+    }
+
+    @ShellMethod(value = "State Machine State", group = "SpringBoot")
+    public void state() {
+        terminalService.write(stateMachine.getState().getId().name());
     }
 }
