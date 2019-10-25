@@ -27,6 +27,18 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     private RomeService romeService;
 
     @Override
+    public void configure(StateMachineConfigurationConfigurer<RomeStates, RomeEvents> config) throws Exception {
+        config.withConfiguration()
+            .autoStartup(true)
+            .listener(new StateMachineListenerAdapter<>() {
+                @Override
+                public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
+                    log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
+                }
+            });
+    }
+
+    @Override
     public void configure(StateMachineStateConfigurer<RomeStates, RomeEvents> states) throws Exception {
         states.withStates()
                 .initial(RomeStates.STARTED)
@@ -34,8 +46,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .state(RomeStates.CONFIGURED)
                 .state(RomeStates.DEPLOYED);
     }
-
-
+    
     @Override
     public void configure(StateMachineTransitionConfigurer<RomeStates, RomeEvents> transitions) throws Exception {
         transitions
@@ -93,18 +104,6 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                     (Boolean) context.getMessageHeader("ignoreConfigure")
             );
         };
-    }
-
-    @Override
-    public void configure(StateMachineConfigurationConfigurer<RomeStates, RomeEvents> config) throws Exception {
-        config.withConfiguration()
-                .autoStartup(false)
-                .listener(new StateMachineListenerAdapter<>() {
-                    @Override
-                    public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
-                        log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
-                    }
-                });
     }
 
     private Object ofNullableState(State<RomeStates, RomeEvents> state) {
