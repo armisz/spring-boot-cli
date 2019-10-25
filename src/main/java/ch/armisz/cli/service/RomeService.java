@@ -1,6 +1,9 @@
 package ch.armisz.cli.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,24 +13,36 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class RomeService {
 
+    @Autowired
+    TerminalService terminalService;
+
     public void fetch() {
-        log.info("fetch");
+        terminalService.write(new AttributedString(
+            "fetch",
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
     public void parameters(RomeFilter filter) {
-        log.info("parameters, filter={}", filter);
+        terminalService.write(new AttributedString(
+            String.format("parameters, filter=%s", filter),
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
     public void configure(RomeFilter filter) {
-        log.info("configure, filter={}", filter);
+        terminalService.write(new AttributedString(
+            String.format("configure, filter=%s", filter),
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
     public void deploy(RomeFilter filter, boolean ignoreFetch, boolean ignoreConfigure) {
-        log.info("deploy, filter={}, ignoreFetch={}, ignoreConfigure={}", filter, ignoreFetch, ignoreConfigure);
+        terminalService.write(new AttributedString(
+            String.format("deploy, filter=%s, ignoreFetch=%s, ignoreConfigure=%s", filter, ignoreFetch, ignoreConfigure),
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
     public void images(RomeFilter filter) {
-        log.info("images, filter={}", filter);
+        terminalService.write(new AttributedString(
+            String.format("images, filter=%s", filter),
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
-
 }
