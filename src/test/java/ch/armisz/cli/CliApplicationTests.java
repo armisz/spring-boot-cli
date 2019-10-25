@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CliApplicationTests {
 
     @Test
-    @Ignore
+    @Ignore  // TODO fix
     public void contextLoads() {
     }
 
