@@ -1,6 +1,5 @@
 package ch.armisz.cli.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
  * All roads lead to Rome.
  */
 @Service
-@Slf4j
 public class RomeService {
 
     @Autowired
@@ -38,6 +36,9 @@ public class RomeService {
         terminalService.write(new AttributedString(
             String.format("deploy, filter=%s, ignoreFetch=%s, ignoreConfigure=%s", filter, ignoreFetch, ignoreConfigure),
             AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
+        if (ignoreConfigure) {
+            throw new IllegalStateException("Boom!");
+        }
     }
 
     public void images(RomeFilter filter) {
