@@ -29,13 +29,13 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     @Override
     public void configure(StateMachineConfigurationConfigurer<RomeStates, RomeEvents> config) throws Exception {
         config.withConfiguration()
-            .autoStartup(true)
-            .listener(new StateMachineListenerAdapter<>() {
-                @Override
-                public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
-                    log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
-                }
-            });
+                .autoStartup(true)
+                .listener(new StateMachineListenerAdapter<>() {
+                    @Override
+                    public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
+                        log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
+                    }
+                });
     }
 
     @Override
@@ -46,7 +46,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
                 .state(RomeStates.CONFIGURED)
                 .state(RomeStates.DEPLOYED);
     }
-    
+
     @Override
     public void configure(StateMachineTransitionConfigurer<RomeStates, RomeEvents> transitions) throws Exception {
         transitions

@@ -19,15 +19,15 @@ public class RomeCommands {
     private static final String PRODUCT_FILTER = "--product-filter";
     private static final String COMPONENT_FILTER = "--component-filter";
 
-  @Autowired
-  private RomeService romeService;
-  @Autowired
-  private StateMachineService stateMachineService;
+    @Autowired
+    private RomeService romeService;
+    @Autowired
+    private StateMachineService stateMachineService;
 
-  @ShellMethod("Fetch components from repository")
-  public void fetch() {
-    stateMachineService.sendEvent(RomeEvents.FETCH);
-  }
+    @ShellMethod("Fetch components from repository")
+    public void fetch() {
+        stateMachineService.sendEvent(RomeEvents.FETCH);
+    }
 
     @ShellMethod("Manage parameters")
     public void parameters(
@@ -47,11 +47,11 @@ public class RomeCommands {
         romeService.parameters(filter);
     }
 
-  Availability parametersAvailability() {
-    return stateMachineService.hasState(RomeStates.STARTED)
-        ? Availability.unavailable("command [fetch] must be executed first.")
-        : Availability.available();
-  }
+    Availability parametersAvailability() {
+        return stateMachineService.hasState(RomeStates.STARTED)
+                ? Availability.unavailable("command [fetch] must be executed first.")
+                : Availability.available();
+    }
 
     @ShellMethod("Applies configuration")
     public void configure(
@@ -123,10 +123,10 @@ public class RomeCommands {
         romeService.images(filter);
     }
 
-  Availability imagesAvailability() {
-    return stateMachineService.hasState(RomeStates.DEPLOYED)
-        ? Availability.available()
-        : Availability.unavailable("command [configure] must be executed first.");
-  }
+    Availability imagesAvailability() {
+        return stateMachineService.hasState(RomeStates.DEPLOYED)
+                ? Availability.available()
+                : Availability.unavailable("command [configure] must be executed first.");
+    }
 
 }

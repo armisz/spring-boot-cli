@@ -1,6 +1,5 @@
 package ch.armisz.cli.configuration;
 
-import java.nio.file.Paths;
 import org.jline.reader.History;
 import org.jline.reader.LineReader;
 import org.jline.reader.impl.history.DefaultHistory;
@@ -9,6 +8,8 @@ import org.jline.utils.AttributedStyle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.shell.jline.PromptProvider;
+
+import java.nio.file.Paths;
 
 @Configuration
 public class CliConfiguration {

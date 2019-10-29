@@ -2,27 +2,41 @@ package ch.armisz.cli;
 
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.support.DefaultStateMachineContext;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StateMachineTests extends AbstractTests {
 
-  @Autowired
-  private StateMachine<RomeStates, RomeEvents> stateMachine;
+    @Autowired
+    private StateMachine<RomeStates, RomeEvents> stateMachine;
 
-  @Test
-  public void initTest() {
-    assertThat(stateMachine).isNotNull();
-    assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.STARTED);
-  }
+    @Before
+    public void setup() {
+        stateMachine.stop();
+        stateMachine.getStateMachineAccessor().doWithAllRegions(
+                sma -> sma.resetStateMachine(
+                        new DefaultStateMachineContext<RomeStates, RomeEvents>(stateMachine.getInitialState().getId(), null, null, null))
+        );
+        stateMachine.start();
+    }
 
-  @Test
-  public void testGreenFlow() {
-    stateMachine.sendEvent(RomeEvents.FETCH);
-    stateMachine.sendEvent(RomeEvents.CONFIGURE);
-    stateMachine.sendEvent(RomeEvents.DEPLOY);
+    @Test
+    public void initTest() {
+        assertThat(stateMachine).isNotNull();
+        assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.STARTED);
+    }
 
-    assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.DEPLOYED);
-  }
+    @Test
+    public void testGreenFlow() {
+        stateMachine.sendEvent(RomeEvents.FETCH);
+        stateMachine.sendEvent(RomeEvents.CONFIGURE);
+        stateMachine.sendEvent(RomeEvents.DEPLOY);
+
+        assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.DEPLOYED);
+    }
 }
