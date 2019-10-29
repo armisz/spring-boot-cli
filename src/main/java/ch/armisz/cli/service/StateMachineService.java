@@ -48,8 +48,7 @@ public class StateMachineService {
                     stateMachine.stop();
                     stateMachine.getStateMachineAccessor().doWithAllRegions(
                             sma -> sma.resetStateMachine(
-                                    new DefaultStateMachineContext<RomeStates, RomeEvents>(newState, null, null,
-                                            null))
+                                    new DefaultStateMachineContext<RomeStates, RomeEvents>(newState, null, null, null))
                     );
                     stateMachine.start();
                 });

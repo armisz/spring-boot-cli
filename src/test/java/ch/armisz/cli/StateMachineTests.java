@@ -34,9 +34,10 @@ public class StateMachineTests extends AbstractTests {
     @Test
     public void testGreenFlow() {
         stateMachine.sendEvent(RomeEvents.FETCH);
+        assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.FETCHED);
         stateMachine.sendEvent(RomeEvents.CONFIGURE);
+        assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.CONFIGURED);
         stateMachine.sendEvent(RomeEvents.DEPLOY);
-
         assertThat(stateMachine.getState().getId()).isEqualTo(RomeStates.DEPLOYED);
     }
 }

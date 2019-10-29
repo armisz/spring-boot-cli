@@ -5,6 +5,8 @@ import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * All roads lead to Rome.
  */
@@ -36,7 +38,8 @@ public class RomeService {
         terminalService.write(new AttributedString(
                 String.format("deploy, filter=%s, ignoreFetch=%s, ignoreConfigure=%s", filter, ignoreFetch, ignoreConfigure),
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
-        if (ignoreConfigure != null && ignoreConfigure) {
+
+        if (Optional.ofNullable(ignoreConfigure).orElse(Boolean.FALSE)) {
             throw new IllegalStateException("Boom!");
         }
     }
