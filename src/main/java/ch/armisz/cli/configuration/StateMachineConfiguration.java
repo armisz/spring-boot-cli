@@ -1,6 +1,6 @@
 package ch.armisz.cli.configuration;
 
-import ch.armisz.cli.service.RomeFilter;
+import ch.armisz.cli.service.Filter;
 import ch.armisz.cli.service.RomeService;
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
@@ -81,14 +81,14 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     private Action<RomeStates, RomeEvents> configureAction() {
         return context -> {
             log.info("configureAction: {}", context.getEvent());
-            romeService.configure((RomeFilter) context.getMessageHeader("filter"));
+            romeService.configure((Filter) context.getMessageHeader("filter"));
         };
     }
 
     private Action<RomeStates, RomeEvents> configureAndDeployAction() {
         return context -> {
             log.info("configureAndDeployAction: {}", context.getEvent());
-            RomeFilter filter = (RomeFilter) context.getMessageHeader("filter");
+            Filter filter = (Filter) context.getMessageHeader("filter");
             romeService.configure(filter);
             romeService.deploy(filter, false, false);
         };
@@ -99,7 +99,7 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
             log.info("deployAction: {}", context.getEvent());
 
             romeService.deploy(
-                    (RomeFilter) context.getMessageHeader("filter"),
+                    (Filter) context.getMessageHeader("filter"),
                     (Boolean) context.getMessageHeader("ignoreFetch"),
                     (Boolean) context.getMessageHeader("ignoreConfigure")
             );

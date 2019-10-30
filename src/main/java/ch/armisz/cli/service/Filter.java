@@ -5,9 +5,9 @@ import lombok.Value;
 
 @Value
 @Builder
-public class RomeFilter {
+public class Filter {
 
-    public static final RomeFilter NONE = RomeFilter.builder().build();
+    public static final Filter NONE = Filter.builder().build();
 
     private String product;
     private String component;

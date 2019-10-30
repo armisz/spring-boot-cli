@@ -1,10 +1,13 @@
 package ch.armisz.cli.command;
 
-import ch.armisz.cli.service.RomeFilter;
+import ch.armisz.cli.event.EventHandler;
+import ch.armisz.cli.event.ValidateEvent;
+import ch.armisz.cli.service.Filter;
 import ch.armisz.cli.service.RomeService;
 import ch.armisz.cli.service.StateMachineService;
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -23,6 +26,8 @@ public class RomeCommands {
     private RomeService romeService;
     @Autowired
     private StateMachineService stateMachineService;
+    @Autowired
+    private List<EventHandler<ValidateEvent>> validators;
 
     @ShellMethod("Fetch components from repository")
     public void fetch() {
@@ -40,7 +45,7 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        RomeFilter filter = RomeFilter.builder()
+        Filter filter = Filter.builder()
                 .component(componentFilter)
                 .product(productFilter)
                 .build();
@@ -64,7 +69,10 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        RomeFilter filter = RomeFilter.builder()
+        ValidateEvent event = new ValidateEvent(productFilter);
+        validators.forEach(v -> v.trigger(event));
+
+        Filter filter = Filter.builder()
                 .component(componentFilter)
                 .product(productFilter)
                 .build();
@@ -91,7 +99,7 @@ public class RomeCommands {
                     defaultValue = "false")
                     boolean ignoreConfigure) {
 
-        RomeFilter filter = RomeFilter.builder()
+        Filter filter = Filter.builder()
                 .component(componentFilter)
                 .product(productFilter)
                 .build();
@@ -116,7 +124,7 @@ public class RomeCommands {
                     value = COMPONENT_FILTER)
                     String componentFilter) {
 
-        RomeFilter filter = RomeFilter.builder()
+        Filter filter = Filter.builder()
                 .component(componentFilter)
                 .product(productFilter)
                 .build();

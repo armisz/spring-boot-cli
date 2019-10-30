@@ -22,19 +22,19 @@ public class RomeService {
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
-    public void parameters(RomeFilter filter) {
+    public void parameters(Filter filter) {
         terminalService.write(new AttributedString(
                 String.format("parameters, filter=%s", filter),
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
-    public void configure(RomeFilter filter) {
+    public void configure(Filter filter) {
         terminalService.write(new AttributedString(
                 String.format("configure, filter=%s", filter),
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
     }
 
-    public void deploy(RomeFilter filter, Boolean ignoreFetch, Boolean ignoreConfigure) {
+    public void deploy(Filter filter, Boolean ignoreFetch, Boolean ignoreConfigure) {
         terminalService.write(new AttributedString(
                 String.format("deploy, filter=%s, ignoreFetch=%s, ignoreConfigure=%s", filter, ignoreFetch, ignoreConfigure),
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
@@ -44,7 +44,7 @@ public class RomeService {
         }
     }
 
-    public void images(RomeFilter filter) {
+    public void images(Filter filter) {
         terminalService.write(new AttributedString(
                 String.format("images, filter=%s", filter),
                 AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN)));
