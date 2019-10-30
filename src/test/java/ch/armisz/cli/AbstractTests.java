@@ -7,8 +7,8 @@ import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(properties = {
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false",
-        InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false"
+    ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false",
+    InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false"
 })
 @RunWith(SpringRunner.class)
 public abstract class AbstractTests {

@@ -14,14 +14,14 @@ public class TerminalService {
 
     public void write(String msg, Object... args) {
         write(new AttributedString(
-                String.format(msg, args),
-                AttributedStyle.DEFAULT));
+            String.format(msg, args),
+            AttributedStyle.DEFAULT));
     }
 
     public void write(AttributedString msg) {
         terminal.writer()
-                .append(msg.toAnsi())
-                .append(AttributedString.NEWLINE)
-                .flush();
+            .append(msg.toAnsi())
+            .append(AttributedString.NEWLINE)
+            .flush();
     }
 }

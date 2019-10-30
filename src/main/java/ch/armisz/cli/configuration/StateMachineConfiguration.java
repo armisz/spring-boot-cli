@@ -29,46 +29,46 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
     @Override
     public void configure(StateMachineConfigurationConfigurer<RomeStates, RomeEvents> config) throws Exception {
         config.withConfiguration()
-                .autoStartup(true)
-                .listener(new StateMachineListenerAdapter<>() {
-                    @Override
-                    public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
-                        log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
-                    }
-                });
+            .autoStartup(true)
+            .listener(new StateMachineListenerAdapter<>() {
+                @Override
+                public void stateChanged(State<RomeStates, RomeEvents> from, State<RomeStates, RomeEvents> to) {
+                    log.info("state changed from {} to {}", ofNullableState(from), ofNullableState(to));
+                }
+            });
     }
 
     @Override
     public void configure(StateMachineStateConfigurer<RomeStates, RomeEvents> states) throws Exception {
         states.withStates()
-                .initial(RomeStates.STARTED)
-                .state(RomeStates.FETCHED)
-                .state(RomeStates.CONFIGURED)
-                .state(RomeStates.DEPLOYED);
+            .initial(RomeStates.STARTED)
+            .state(RomeStates.FETCHED)
+            .state(RomeStates.CONFIGURED)
+            .state(RomeStates.DEPLOYED);
     }
 
     @Override
     public void configure(StateMachineTransitionConfigurer<RomeStates, RomeEvents> transitions) throws Exception {
         transitions
-                .withExternal().source(RomeStates.STARTED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
-                .and()
-                .withExternal().source(RomeStates.FETCHED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
-                .and()
-                .withExternal().source(RomeStates.FETCHED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction())
-                .and()
-                .withExternal().source(RomeStates.FETCHED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(configureAndDeployAction())
-                .and()
-                .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(deployAction())
-                .and()
-                .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction())
-                .and()
-                .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
-                .and()
-                .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(deployAction())
-                .and()
-                .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
-                .and()
-                .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction());
+            .withExternal().source(RomeStates.STARTED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
+            .and()
+            .withExternal().source(RomeStates.FETCHED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
+            .and()
+            .withExternal().source(RomeStates.FETCHED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction())
+            .and()
+            .withExternal().source(RomeStates.FETCHED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(configureAndDeployAction())
+            .and()
+            .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(deployAction())
+            .and()
+            .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction())
+            .and()
+            .withExternal().source(RomeStates.CONFIGURED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
+            .and()
+            .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.DEPLOYED).event(RomeEvents.DEPLOY).action(deployAction())
+            .and()
+            .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.FETCHED).event(RomeEvents.FETCH).action(fetchAction())
+            .and()
+            .withExternal().source(RomeStates.DEPLOYED).target(RomeStates.CONFIGURED).event(RomeEvents.CONFIGURE).action(configureAction());
     }
 
     private Action<RomeStates, RomeEvents> fetchAction() {
@@ -99,16 +99,16 @@ public class StateMachineConfiguration extends EnumStateMachineConfigurerAdapter
             log.info("deployAction: {}", context.getEvent());
 
             romeService.deploy(
-                    (Filter) context.getMessageHeader("filter"),
-                    (Boolean) context.getMessageHeader("ignoreFetch"),
-                    (Boolean) context.getMessageHeader("ignoreConfigure")
+                (Filter) context.getMessageHeader("filter"),
+                (Boolean) context.getMessageHeader("ignoreFetch"),
+                (Boolean) context.getMessageHeader("ignoreConfigure")
             );
         };
     }
 
     private Object ofNullableState(State<RomeStates, RomeEvents> state) {
         return Optional.ofNullable(state)
-                .map(State::getId)
-                .orElse(null);
+            .map(State::getId)
+            .orElse(null);
     }
 }

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Order(1)
 public class ValidationServiceWithHigherPriority implements EventHandler<ValidateEvent> {
 
-  @Override
-  public void trigger(ValidateEvent event) {
-    log.info("ValidationServiceWithHigherPriority target={}", event.getTarget());
-  }
+    @Override
+    public void trigger(ValidateEvent event) {
+        log.info("ValidationServiceWithHigherPriority target={}", event.getTarget());
+    }
 }

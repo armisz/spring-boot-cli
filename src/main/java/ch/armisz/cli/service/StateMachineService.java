@@ -43,15 +43,15 @@ public class StateMachineService {
 
     private void reconcile() {
         Optional.ofNullable(getProperty("state"))
-                .map(RomeStates::valueOf)
-                .ifPresent((newState) -> {
-                    stateMachine.stop();
-                    stateMachine.getStateMachineAccessor().doWithAllRegions(
-                            sma -> sma.resetStateMachine(
-                                    new DefaultStateMachineContext<RomeStates, RomeEvents>(newState, null, null, null))
-                    );
-                    stateMachine.start();
-                });
+            .map(RomeStates::valueOf)
+            .ifPresent((newState) -> {
+                stateMachine.stop();
+                stateMachine.getStateMachineAccessor().doWithAllRegions(
+                    sma -> sma.resetStateMachine(
+                        new DefaultStateMachineContext<RomeStates, RomeEvents>(newState, null, null, null))
+                );
+                stateMachine.start();
+            });
     }
 
     private String getProperty(String key) {

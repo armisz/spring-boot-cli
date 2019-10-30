@@ -19,8 +19,8 @@ public class StateMachineTests extends AbstractTests {
     public void setup() {
         stateMachine.stop();
         stateMachine.getStateMachineAccessor().doWithAllRegions(
-                sma -> sma.resetStateMachine(
-                        new DefaultStateMachineContext<RomeStates, RomeEvents>(stateMachine.getInitialState().getId(), null, null, null))
+            sma -> sma.resetStateMachine(
+                new DefaultStateMachineContext<RomeStates, RomeEvents>(stateMachine.getInitialState().getId(), null, null, null))
         );
         stateMachine.start();
     }

@@ -25,36 +25,36 @@ public class CliCommands {
 
     @ShellMethod(value = "Division", group = "Arithmetic")
     public void div(
-            String dividend,
-            String divisor,
-            @ShellOption(defaultValue = "false", help = "Show rest if present") boolean showRest) {
+        String dividend,
+        String divisor,
+        @ShellOption(defaultValue = "false", help = "Show rest if present") boolean showRest) {
 
         BigInteger bigDividend = new BigInteger(dividend);
         BigInteger bigDivisor = new BigInteger(divisor);
         BigInteger[] result = bigDividend.divideAndRemainder(bigDivisor);
 
         terminalService.write(showRest ? "%s / %s = %s rest %s" : "%s / %s = %s",
-                bigDividend, bigDivisor, result[0], result[1]);
+            bigDividend, bigDivisor, result[0], result[1]);
 
         if (!showRest && !BigInteger.ZERO.equals(result[1])) {
             terminalService.write(new AttributedString(
-                    "Rest is available",
-                    AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN)));
+                "Rest is available",
+                AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN)));
         }
     }
 
     @ShellMethod(value = "Beans", group = "SpringBoot")
     public void beans() {
         Arrays.stream(ctx.getBeanDefinitionNames())
-                .sorted()
-                .forEach(terminalService::write);
+            .sorted()
+            .forEach(terminalService::write);
     }
 
     @ShellMethod(value = "State Machine State", group = "SpringBoot")
     public void state(
-            @ShellOption(defaultValue = "false", help = "Reconcile state") boolean reconcile) {
+        @ShellOption(defaultValue = "false", help = "Reconcile state") boolean reconcile) {
         terminalService.write(new AttributedString(
-                stateMachineService.getState(reconcile).name(),
-                AttributedStyle.DEFAULT.foreground(AttributedStyle.RED)));
+            stateMachineService.getState(reconcile).name(),
+            AttributedStyle.DEFAULT.foreground(AttributedStyle.RED)));
     }
 }

@@ -1,14 +1,9 @@
 package ch.armisz.cli.event;
 
+import lombok.Value;
+
+@Value
 public class ValidateEvent {
 
-  private final String target;
-
-  public ValidateEvent(String target) {
-    this.target = target;
-  }
-
-  public String getTarget() {
-    return target;
-  }
+    private String target;
 }

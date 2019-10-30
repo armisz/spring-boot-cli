@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Order(5)
 public class ValidationService implements EventHandler<ValidateEvent> {
 
-  @Override
-  public void trigger(ValidateEvent event) {
-    if ("Boom".equalsIgnoreCase(event.getTarget())) {
-      throw new IllegalStateException("Boom!");
+    @Override
+    public void trigger(ValidateEvent event) {
+        if ("Boom".equalsIgnoreCase(event.getTarget())) {
+            throw new IllegalStateException("Boom!");
+        }
+        log.info("ValidationService target={}", event.getTarget());
     }
-    log.info("ValidationService target={}", event.getTarget());
-  }
 }

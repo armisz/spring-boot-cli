@@ -21,7 +21,7 @@ public class LoggingExceptionResultHandler implements ResultHandler<Exception> {
     public void handleResult(Exception result) {
         if (interactiveRunner.isEnabled()) {
             String toPrint =
-                    StringUtils.hasLength(result.getMessage()) ? result.getMessage() : result.toString();
+                StringUtils.hasLength(result.getMessage()) ? result.getMessage() : result.toString();
             log.error(toPrint, result);
         }
         throwableResultHandler.handleResult(result);
