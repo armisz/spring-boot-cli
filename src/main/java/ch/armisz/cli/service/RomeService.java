@@ -1,5 +1,6 @@
 package ch.armisz.cli.service;
 
+import ch.armisz.cli.service.internal.TerminalService;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
 import org.springframework.beans.factory.annotation.Autowired;

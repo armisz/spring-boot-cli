@@ -1,10 +1,10 @@
 package ch.armisz.cli.command;
 
-import ch.armisz.cli.event.EventHandler;
-import ch.armisz.cli.event.ValidateEvent;
 import ch.armisz.cli.service.Filter;
 import ch.armisz.cli.service.RomeService;
-import ch.armisz.cli.service.StateMachineService;
+import ch.armisz.cli.service.ValidateEvent;
+import ch.armisz.cli.service.internal.EventService;
+import ch.armisz.cli.service.internal.StateMachineService;
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,6 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import java.util.List;
 
 @ShellComponent
 public class RomeCommands {
@@ -28,7 +26,7 @@ public class RomeCommands {
     @Autowired
     private StateMachineService stateMachineService;
     @Autowired
-    private List<EventHandler<ValidateEvent>> validators;
+    private EventService eventService;
 
     @ShellMethod("Fetch components from repository")
     public void fetch() {
@@ -70,8 +68,7 @@ public class RomeCommands {
             value = COMPONENT_FILTER)
             String componentFilter) {
 
-        ValidateEvent event = new ValidateEvent(productFilter);
-        validators.forEach(v -> v.trigger(event));
+        eventService.trigger(new ValidateEvent(productFilter));
 
         Filter filter = Filter.builder()
             .component(componentFilter)

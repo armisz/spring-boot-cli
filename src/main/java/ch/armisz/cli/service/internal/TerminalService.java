@@ -1,4 +1,4 @@
-package ch.armisz.cli.service;
+package ch.armisz.cli.service.internal;
 
 import org.jline.terminal.Terminal;
 import org.jline.utils.AttributedString;

@@ -1,4 +1,4 @@
-package ch.armisz.cli.event;
+package ch.armisz.cli.service;
 
 import lombok.Value;
 
