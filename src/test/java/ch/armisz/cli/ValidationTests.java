@@ -1,9 +1,9 @@
 package ch.armisz.cli;
 
-import ch.armisz.cli.service.ValidateEvent;
+import ch.armisz.cli.event.ValidateEvent;
+import ch.armisz.cli.event.internal.EventHandler;
 import ch.armisz.cli.service.ValidationService;
 import ch.armisz.cli.service.ValidationServiceWithHigherPriority;
-import ch.armisz.cli.service.internal.EventHandler;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,10 +1,10 @@
 package ch.armisz.cli.command;
 
+import ch.armisz.cli.event.ValidateEvent;
+import ch.armisz.cli.service.EventService;
 import ch.armisz.cli.service.Filter;
 import ch.armisz.cli.service.RomeService;
-import ch.armisz.cli.service.ValidateEvent;
-import ch.armisz.cli.service.internal.EventService;
-import ch.armisz.cli.service.internal.StateMachineService;
+import ch.armisz.cli.service.StateMachineService;
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
 import org.springframework.beans.factory.annotation.Autowired;

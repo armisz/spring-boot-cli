@@ -1,6 +1,6 @@
 package ch.armisz.cli.command;
 
-import ch.armisz.cli.service.internal.StateMachineService;
+import ch.armisz.cli.service.StateMachineService;
 import ch.armisz.cli.service.internal.TerminalService;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;

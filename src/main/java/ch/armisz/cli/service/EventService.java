@@ -1,6 +1,7 @@
-package ch.armisz.cli.service.internal;
+package ch.armisz.cli.service;
 
-import ch.armisz.cli.service.ValidateEvent;
+import ch.armisz.cli.event.ValidateEvent;
+import ch.armisz.cli.event.internal.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

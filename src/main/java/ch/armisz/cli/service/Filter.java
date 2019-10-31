@@ -9,8 +9,8 @@ public class Filter {
 
     public static final Filter NONE = Filter.builder().build();
 
-    private String product;
-    private String component;
+    private final String product;
+    private final String component;
 
     @Override
     public String toString() {

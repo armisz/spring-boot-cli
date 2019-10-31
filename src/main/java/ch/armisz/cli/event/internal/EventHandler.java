@@ -1,4 +1,4 @@
-package ch.armisz.cli.service.internal;
+package ch.armisz.cli.event.internal;
 
 @FunctionalInterface
 public interface EventHandler<T> {

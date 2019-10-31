@@ -1,4 +1,4 @@
-package ch.armisz.cli.service.internal;
+package ch.armisz.cli.service;
 
 import ch.armisz.cli.state.RomeEvents;
 import ch.armisz.cli.state.RomeStates;
