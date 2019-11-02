@@ -11,6 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
     InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false"
 })
 @RunWith(SpringRunner.class)
-public abstract class AbstractTests {
+public abstract class AbstractApplicationTests {
 
 }

@@ -10,7 +10,7 @@ import org.springframework.statemachine.support.DefaultStateMachineContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StateMachineTests extends AbstractTests {
+public class StateMachineTests extends AbstractApplicationTests {
 
     @Autowired
     private StateMachine<RomeStates, RomeEvents> stateMachine;
