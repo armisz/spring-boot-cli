@@ -2,6 +2,7 @@ package ch.armisz.cli;
 
 import ch.armisz.cli.event.ValidateEvent;
 import ch.armisz.cli.event.internal.EventHandler;
+import ch.armisz.cli.event.internal.EventResult;
 import ch.armisz.cli.service.ValidationService;
 import ch.armisz.cli.service.ValidationServiceWithHigherPriority;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ValidationTests extends AbstractTests {
 
     @Autowired
-    private List<EventHandler<ValidateEvent>> validators;
+    private List<EventHandler<ValidateEvent, EventResult>> validators;
 
     @Test
     public void testOrder() {

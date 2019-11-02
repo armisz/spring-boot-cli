@@ -1,7 +1,7 @@
 package ch.armisz.cli.event.internal;
 
 @FunctionalInterface
-public interface EventHandler<T> {
+public interface EventHandler<I extends Event, O extends EventResult> {
 
-    void handle(T event);
+    O handle(I event);
 }
