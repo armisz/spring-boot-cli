@@ -16,6 +16,6 @@ public class ValidationServiceWithHighPriority implements EventHandler<ValidateE
     @Override
     public ValidationResult handle(ValidateEvent event) {
         log.info("target={}", event.getTarget());
-        return new ValidationResult(Level.INFO, "OK");
+        return ValidationResult.OK;
     }
 }

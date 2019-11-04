@@ -7,10 +7,17 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventResultTests {
+	
+	  private static class SimpleEventResult extends EventResult {
 
+		    public SimpleEventResult(Level level, String message) {
+			      super(level, message);
+		    }
+	  }
+	
     @Test
     public void testCreate() {
-        EventResult result = new EventResult(Level.INFO, "OK");
+        EventResult result = new SimpleEventResult(Level.INFO, "OK");
 
         assertThat(result.getOrigin()).isNull();
         assertThat(result.getLevel()).isEqualTo(Level.INFO);
@@ -19,17 +26,17 @@ public class EventResultTests {
 
     @Test(expected = NullPointerException.class)
     public void testCreateLevelMissing() {
-        new EventResult(null, "OK");
+        new SimpleEventResult(null, "OK");
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreateMessageMissing() {
-        new EventResult(Level.INFO, null);
+        new SimpleEventResult(Level.INFO, null);
     }
 
     @Test
     public void testSetOrigin() {
-        EventResult result = new EventResult(Level.INFO, "OK");
+        EventResult result = new SimpleEventResult(Level.INFO, "OK");
         result.setOrigin(getClass().getSimpleName());
 
         assertThat(result.getOrigin()).isEqualTo(getClass().getSimpleName());
@@ -37,7 +44,7 @@ public class EventResultTests {
 
     @Test(expected = NullPointerException.class)
     public void testSetOriginMissing() {
-        EventResult result = new EventResult(Level.INFO, "OK");
+        EventResult result = new SimpleEventResult(Level.INFO, "OK");
         result.setOrigin(null);
     }
 }

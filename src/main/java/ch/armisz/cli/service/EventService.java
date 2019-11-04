@@ -2,6 +2,8 @@ package ch.armisz.cli.service;
 
 import ch.armisz.cli.event.ValidateEvent;
 import ch.armisz.cli.event.ValidationResult;
+import ch.armisz.cli.event.internal.ErrorResult;
+import ch.armisz.cli.event.internal.Event;
 import ch.armisz.cli.event.internal.EventHandler;
 import ch.armisz.cli.event.internal.EventResult;
 import ch.armisz.cli.event.internal.EventResult.Level;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
 import java.util.List;
 
 @Slf4j
@@ -23,16 +26,20 @@ public class EventService {
     @Lazy
     private List<EventHandler<ValidateEvent, ValidationResult>> validators;
 
-    public EventResults trigger(ValidateEvent event) {
+    public EventResults trigger(ValidateEvent validateEvent) {
+        return trigger(validators, validateEvent);
+    }
+
+    private <I extends Event, O extends EventResult> EventResults trigger(List<EventHandler<I, O>> handlers, I event) {
         EventResults results = new EventResults();
-        for (EventHandler<ValidateEvent, ValidationResult> validator : validators) {
+        for (EventHandler<I, O> handler : handlers) {
             EventResult result = null;
             try {
-                result = validator.handle(event);
+                result = handler.handle(event);
             } catch (Exception e) {
-                result = new EventResult(Level.ERROR, e.getMessage());
+                result = new ErrorResult(e);
             } finally {
-                String validatorClassName = validator.getClass().getSimpleName();
+                String validatorClassName = handler.getClass().getSimpleName();
                 if (result != null) {
                     result.setOrigin(validatorClassName);
                     results.add(result);
@@ -45,4 +52,15 @@ public class EventService {
         }
         return results;
     }
+
+    public void throwExceptionOnError(EventResults results) {
+        if (results.hasLevel(Level.ERROR)) {
+            throw new IllegalStateException(results.getResults(Level.ERROR)
+                .stream()
+                .map(r -> String.format("%s: %s", r.getOrigin(), r.getMessage()))
+                .collect(Collectors.joining(", ")));
+        }
+    }
+
+
 }

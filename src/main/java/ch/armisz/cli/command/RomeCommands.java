@@ -75,12 +75,7 @@ public class RomeCommands {
             String componentFilter) {
 
         EventResults results = eventService.trigger(new ValidateEvent(productFilter));
-        if (results.hasResult(Level.ERROR)) {
-            throw new IllegalStateException(results.getResults(Level.ERROR)
-                .stream()
-                .map(r -> String.format("%s: %s", r.getOrigin(), r.getMessage()))
-                .collect(Collectors.joining(", ")));
-        }
+        eventService.throwExceptionOnError(results);
 
         Filter filter = Filter.builder()
             .component(componentFilter)
