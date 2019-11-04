@@ -7,14 +7,14 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EventResultTests {
-	
-	  private static class SimpleEventResult extends EventResult {
 
-		    public SimpleEventResult(Level level, String message) {
-			      super(level, message);
-		    }
-	  }
-	
+    private static class SimpleEventResult extends EventResult {
+
+        public SimpleEventResult(Level level, String message) {
+            super(level, message);
+        }
+    }
+
     @Test
     public void testCreate() {
         EventResult result = new SimpleEventResult(Level.INFO, "OK");

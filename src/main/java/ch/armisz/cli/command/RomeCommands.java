@@ -1,7 +1,6 @@
 package ch.armisz.cli.command;
 
 import ch.armisz.cli.event.ValidateEvent;
-import ch.armisz.cli.event.internal.EventResult.Level;
 import ch.armisz.cli.event.internal.EventResults;
 import ch.armisz.cli.service.EventService;
 import ch.armisz.cli.service.Filter;
@@ -17,8 +16,6 @@ import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import java.util.stream.Collectors;
 
 @Slf4j
 @ShellComponent

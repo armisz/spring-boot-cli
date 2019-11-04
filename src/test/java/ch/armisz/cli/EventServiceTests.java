@@ -79,7 +79,7 @@ public class EventServiceTests extends AbstractApplicationTests {
         assertThat(results.getResults(Level.INFO)).hasSize(1);
         assertThat(results.getResults(Level.WARNING)).hasSize(1);
         assertThat(results.getResults(Level.ERROR)).hasSize(1);
-        
+
         assertThat(results.getResults()).hasSize(3);
 
         EventResult result = results.getResults().get(0);
