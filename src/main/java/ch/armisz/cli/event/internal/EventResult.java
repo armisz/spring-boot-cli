@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.Objects;
 
-public class EventResult {
+public abstract class EventResult {
 
     public enum Level {
         INFO, WARNING, ERROR

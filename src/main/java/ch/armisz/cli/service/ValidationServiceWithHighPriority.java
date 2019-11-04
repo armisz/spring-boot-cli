@@ -3,7 +3,6 @@ package ch.armisz.cli.service;
 import ch.armisz.cli.event.ValidateEvent;
 import ch.armisz.cli.event.ValidationResult;
 import ch.armisz.cli.event.internal.EventHandler;
-import ch.armisz.cli.event.internal.EventResult.Level;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,6 @@ public class ValidationServiceWithHighPriority implements EventHandler<ValidateE
     @Override
     public ValidationResult handle(ValidateEvent event) {
         log.info("target={}", event.getTarget());
-        return new ValidationResult(Level.INFO, "OK");
+        return ValidationResult.OK;
     }
 }

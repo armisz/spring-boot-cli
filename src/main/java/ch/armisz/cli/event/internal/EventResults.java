@@ -16,7 +16,7 @@ public class EventResults {
         results.add(Objects.requireNonNull(eventResult));
     }
 
-    public boolean hasResult(Level level) {
+    public boolean hasLevel(Level level) {
         return results.stream()
             .anyMatch(r -> r.getLevel().equals(level));
     }
