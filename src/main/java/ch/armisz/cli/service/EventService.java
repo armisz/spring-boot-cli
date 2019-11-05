@@ -39,14 +39,14 @@ public class EventService {
             } catch (Exception e) {
                 result = new ErrorResult(e);
             } finally {
-                String validatorClassName = handler.getClass().getSimpleName();
+                String handlerClassName = handler.getClass().getName();
                 if (result != null) {
-                    result.setOrigin(validatorClassName);
+                    result.setOrigin(handlerClassName);
                     results.add(result);
 
                     log.info("{}", result);
                 } else {
-                    log.info("Result from {} is null", validatorClassName);
+                    log.info("Result from {} is null", handlerClassName);
                 }
             }
         }

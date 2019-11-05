@@ -53,11 +53,11 @@ public class EventServiceTests extends AbstractApplicationTests {
         assertThat(results.getResults()).hasSize(2);
 
         EventResult result = results.getResults().get(0);
-        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithHighPriority.class.getSimpleName());
+        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithHighPriority.class.getName());
         assertThat(result.getLevel()).isEqualTo(Level.INFO);
 
         result = results.getResults().get(1);
-        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithLowPriority.class.getSimpleName());
+        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithLowPriority.class.getName());
         assertThat(result.getLevel()).isEqualTo(Level.WARNING);
     }
 
@@ -83,18 +83,18 @@ public class EventServiceTests extends AbstractApplicationTests {
         assertThat(results.getResults()).hasSize(3);
 
         EventResult result = results.getResults().get(0);
-        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithHighPriority.class.getSimpleName());
+        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithHighPriority.class.getName());
         assertThat(result.getClass()).isEqualTo(ValidationResult.class);
         assertThat(result.getLevel()).isEqualTo(Level.INFO);
 
         result = results.getResults().get(1);
-        assertThat(result.getOrigin()).isEqualTo(ValidationService.class.getSimpleName());
+        assertThat(result.getOrigin()).isEqualTo(ValidationService.class.getName());
         assertThat(result.getMessage()).isEqualTo(errorMessage);
         assertThat(result.getClass()).isEqualTo(errorResultClass);
         assertThat(result.getLevel()).isEqualTo(Level.ERROR);
 
         result = results.getResults().get(2);
-        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithLowPriority.class.getSimpleName());
+        assertThat(result.getOrigin()).isEqualTo(ValidationServiceWithLowPriority.class.getName());
         assertThat(result.getClass()).isEqualTo(ValidationResult.class);
         assertThat(result.getLevel()).isEqualTo(Level.WARNING);
     }
