@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -60,7 +61,7 @@ public class StateMachineService {
             properties.load(stream);
             return properties.getProperty(key);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

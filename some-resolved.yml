@@ -1,0 +1,32 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: Kafka
+metadata:
+  name: my-cluster
+spec:
+  kafka:
+    replicas: 3
+    version: latest
+    resources:
+      requests:
+        memory: 64Gi
+        cpu: '8'
+      limits:
+        memory: 64Gi
+        cpu: '12'
+    listeners:
+      tls:
+        authentication: null
+        type: tls
+    authorization:
+      type: simple
+    config:
+      auto.create.topics.enable: 'false'
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      some.property: '3.14'
+    storage:
+      class: superfast
+      selector.name: defaultt
+      type: persistent-claim
+      size: 10000Gi

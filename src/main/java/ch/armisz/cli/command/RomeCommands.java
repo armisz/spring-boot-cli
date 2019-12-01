@@ -113,30 +113,8 @@ public class RomeCommands {
         stateMachineService.sendEvent(deployMessage);
     }
 
-    @ShellMethod("List images")
-    public void images(
-        @ShellOption(
-            help = "The product to filter for",
-            defaultValue = ShellOption.NULL,
-            value = PRODUCT_FILTER)
-            String productFilter,
-        @ShellOption(
-            help = "The component to filter for",
-            defaultValue = ShellOption.NULL,
-            value = COMPONENT_FILTER)
-            String componentFilter) {
-
-        Filter filter = Filter.builder()
-            .component(componentFilter)
-            .product(productFilter)
-            .build();
-        romeService.images(filter);
+    @ShellMethod("YAML test")
+    public void yaml() {
+        romeService.yaml();
     }
-
-    Availability imagesAvailability() {
-        return stateMachineService.hasState(RomeStates.DEPLOYED)
-            ? Availability.available()
-            : Availability.unavailable("command [configure] must be executed first.");
-    }
-
 }

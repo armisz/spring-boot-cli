@@ -1,6 +1,9 @@
 # Spring Boot Command Line
 
-This is a command line tool showcase using Spring Shell and Spring State Machine.
+This is a Spring Boot based playground using 
+* [Spring Shell](https://projects.spring.io/spring-shell/) feat. [JLine](https://jline.github.io/)
+* a [state machine](https://projects.spring.io/spring-statemachine/)
+* a [rule engine](https://github.com/j-easy/easy-rules)
 
 ## Build & Run
 

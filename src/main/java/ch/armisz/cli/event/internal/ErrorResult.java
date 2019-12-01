@@ -1,8 +1,9 @@
 package ch.armisz.cli.event.internal;
 
-import java.util.Objects;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.util.Objects;
 
 public class ErrorResult extends EventResult {
 
