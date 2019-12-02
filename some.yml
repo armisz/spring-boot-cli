@@ -25,22 +25,20 @@ spec:
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
       i8r-rule:
-        condition: |-
-          SOME_PROPERTY.length() > 0
+        condition: SOME_PROPERTY.length() > 0
         action:
-          key: "some.property"
-          value: "SOME_PROPERTY"
+          key: some.property
+          value: SOME_PROPERTY
     storage:
       i8r-rules:
-        - condition: |-
-            STORAGE_CLASS.length() > 0
+        - condition: STORAGE_CLASS.length() > 0
           action:
-            key: "class"
-            value: "STORAGE_CLASS"
+            key: class
+            value: STORAGE_CLASS
         - condition: |-
             !STORAGE_SELECTOR.equals("default")
           action:
-            key: "selector.name"
-            value: "STORAGE_SELECTOR"
+            key: selector.name
+            value: STORAGE_SELECTOR
       type: persistent-claim
       size: 10000Gi
