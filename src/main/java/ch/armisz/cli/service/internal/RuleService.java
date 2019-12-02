@@ -28,11 +28,11 @@ public class RuleService {
 
         yaml.forEach((key, value) -> {
             if ("i8r-rule".equals(key)) {
-                applyRule((Map<String, String>) value, result);
+                applyRule((Map<String, Object>) value, result);
 
             } else if ("i8r-rules".equals(key)) {
                 for (Object elm : (List<Object>) value) {
-                    applyRule((Map<String, String>) elm, result);
+                    applyRule((Map<String, Object>) elm, result);
                 }
 
             } else if (value != null) {
@@ -66,11 +66,14 @@ public class RuleService {
         return result;
     }
 
-    private void applyRule(Map<String, String> ruleDescriptor, Map<String, Object> context) {
+    private void applyRule(Map<String, Object> ruleDescriptor, Map<String, Object> context) {
+        Map<String, String> actionDescription = (Map<String, String>) ruleDescriptor.get("action");
+        String key = actionDescription.get("key");
+        String value = parameters.get(actionDescription.get("value"));
+
         Rule rule = new MVELRule()
-            .when(ruleDescriptor.get("condition"))
-            .then(String.format("ctx.put(\"%s\",\"%s\")",
-                ruleDescriptor.get("key"), parameters.get(ruleDescriptor.get("value"))));
+            .when((String) ruleDescriptor.get("condition"))
+            .then(String.format("ctx.put(\"%s\",\"%s\")", key, value));
         Rules rules = new Rules(rule);
 
         Facts facts = new Facts();

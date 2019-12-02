@@ -27,17 +27,20 @@ spec:
       i8r-rule:
         condition: |-
           SOME_PROPERTY.length() > 0
-        key: "some.property"
-        value: "SOME_PROPERTY"
+        action:
+          key: "some.property"
+          value: "SOME_PROPERTY"
     storage:
       i8r-rules:
         - condition: |-
             STORAGE_CLASS.length() > 0
-          key: "class"
-          value: "STORAGE_CLASS"
+          action:
+            key: "class"
+            value: "STORAGE_CLASS"
         - condition: |-
             !STORAGE_SELECTOR.equals("default")
-          key: "selector.name"
-          value: "STORAGE_SELECTOR"
+          action:
+            key: "selector.name"
+            value: "STORAGE_SELECTOR"
       type: persistent-claim
       size: 10000Gi
