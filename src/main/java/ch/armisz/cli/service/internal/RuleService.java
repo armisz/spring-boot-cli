@@ -66,10 +66,11 @@ public class RuleService {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private void applyRule(Map<String, Object> ruleDescriptor, Map<String, Object> context) {
         Map<String, String> actionDescription = (Map<String, String>) ruleDescriptor.get("action");
         String key = actionDescription.get("key");
-        String value = parameters.get(actionDescription.get("value"));
+        String value = parameters.getProperty(actionDescription.get("value"));
 
         Rule rule = new MVELRule()
             .when((String) ruleDescriptor.get("condition"))
@@ -78,7 +79,7 @@ public class RuleService {
 
         Facts facts = new Facts();
         facts.put("ctx", context);
-        parameters.forEach((parameter, value) -> facts.put((String) parameter, value));
+        parameters.forEach((p, v) -> facts.put((String) p, v));
 
         rulesEngine.fire(rules, facts);
     }
