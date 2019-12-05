@@ -36,7 +36,12 @@ spec:
             key: class
             value: STORAGE_CLASS
         - condition: |-
-            !STORAGE_SELECTOR.equals("default")
+            STORAGE_SELECTOR.equals("default")
+          action:
+            key: selector.default.name
+            value: STORAGE_SELECTOR
+        - condition: |-
+            !("default".equals(STORAGE_SELECTOR))
           action:
             key: selector.name
             value: STORAGE_SELECTOR
